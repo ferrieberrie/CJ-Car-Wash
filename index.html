@@ -1,132 +1,703 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Charlies Games</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>CJ Car Washing</title>
 
-  <!-- Pixel-style font -->
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<link rel="icon" type="image/x-icon" href="files/22e2f.png">
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<style>
+:root{
+  --primary:#0f62fe;
+  --primary2:#3ea6ff;
+  --deep:#081a38;
+  --muted:#6b7c93;
+  --success:#22c55e;
+  --accent:#ffbd2e; /* Gold color for the badge */
+}
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      background: radial-gradient(circle at center, #111 0%, #000 70%);
-      font-family: "Press Start 2P", monospace;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Inter,sans-serif;
+  background:linear-gradient(180deg,#eef4ff,#ffffff);
+  color:var(--deep);
+  scroll-behavior:smooth;
+}
 
-    .frame {
-      width: 520px;
-      padding: 40px 30px;
-      border: 4px solid #ff005c;
-      box-shadow:
-        0 0 20px #ff005c,
-        0 0 60px rgba(255, 0, 92, 0.4);
-      background: #000;
-      text-align: center;
-    }
+/* NAV */
+.nav{
+  position:fixed;
+  top:15px;
+  left:15px;
+  right:15px;
+  padding:12px 20px;
+  border-radius:16px;
+  backdrop-filter:blur(14px);
+  background:rgba(255,255,255,0.25);
+  border:1px solid rgba(255,255,255,0.4);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  z-index:1000;
+  transition:.3s;
+}
+.nav.scrolled{
+  background:rgba(255,255,255,0.9);
+  box-shadow:0 10px 30px rgba(0,0,0,0.08);
+}
+.nav a{
+  text-decoration:none;
+  font-weight:600;
+  margin-left:18px;
+  color:white;
+}
+.nav.scrolled a,
+.nav.scrolled .logo{
+  color:var(--deep);
+}
+.logo{
+  font-weight:800;
+  color:white;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.nav-logo-small {
+  height: 30px;
+  width: auto;
+}
 
-    h1 {
-      margin: 0;
-      font-size: 26px;
-      color: #ff005c;
-      letter-spacing: 2px;
-    }
+@media(max-width:768px){
+  .nav div:last-child{
+    display:none;
+  }
+}
 
-    .subtitle {
-      margin-top: 12px;
-      font-size: 10px;
-      color: #aaa;
-    }
+/* HERO - FULL PAGE WITH IMAGE */
+.hero{
+  height:100vh;
+  background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('files/hero-car-wash.png') no-repeat;
+  background-size: cover;
+  background-position: center;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  color:white;
+  padding:120px 20px 40px;
+  position: relative;
+}
+.hero-buttons{
+  margin-top:30px;
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  flex-wrap:wrap;
+}
+.hero-buttons a{
+  padding:14px 28px;
+  border-radius:50px;
+  font-weight:600;
+  text-decoration:none;
+  transition:.3s;
+}
+.hero-buttons a:first-child{
+  backdrop-filter:blur(14px);
+  background:rgba(255,255,255,0.25);
+  border:1px solid rgba(255,255,255,0.6);
+  color:white;
+}
+.hero-buttons a:last-child{
+  background:white;
+  color:var(--primary);
+}
+.hero-buttons a:hover{
+  transform:translateY(-4px);
+}
 
-    .subtitle span {
-      color: #00ff5a;
-    }
+/* BOUNCING SCROLL INDICATOR */
+.scroll-indicator {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  text-decoration: none;
+  animation: bounceFlash 2s infinite;
+}
+@keyframes bounceFlash {
+  0%, 20%, 50%, 80%, 100% {transform: translateX(-50%) translateY(0); opacity: 0.7;}
+  40% {transform: translateX(-50%) translateY(-10px); opacity: 1; color: var(--accent);}
+  60% {transform: translateX(-50%) translateY(-5px); opacity: 1;}
+}
 
-    .divider {
-      margin: 30px 0;
-      height: 6px;
-      background: #00ff5a;
-      box-shadow: 0 0 10px #00ff5a;
-    }
+/* SECTIONS */
+.section{
+  padding:100px 20px;
+  max-width:1200px;
+  margin:auto;
+}
+.section-title{
+  text-align:center;
+  font-size:30px;
+  font-weight:800;
+  margin-bottom:50px;
+}
 
-    h2 {
-      margin-bottom: 25px;
-      font-size: 14px;
-      color: #fff;
-    }
+/* ABOUT */
+.about-container {
+  text-align: center;
+}
+.about-logo-big {
+  max-width: 200px;
+  height: auto;
+  margin-bottom: 30px;
+}
+.about-text{
+  max-width:800px;
+  margin:auto;
+  text-align:center;
+  line-height:1.9;
+  font-size:17px;
+  color:var(--muted);
+}
 
-    .game-button {
-      display: block;
-      width: 100%;
-      padding: 18px;
-      margin-bottom: 16px;
-      text-decoration: none;
-      color: #000;
-      background: #00ff5a;
-      font-size: 12px;
-      border: 3px solid #00ff5a;
-      box-shadow: 0 0 12px rgba(0, 255, 90, 0.8);
-      transition: all 0.15s ease;
-    }
+/* GLASS STYLE */
+.glass{
+  backdrop-filter:blur(20px);
+  background:rgba(255,255,255,0.35);
+  border:1px solid rgba(255,255,255,0.6);
+  box-shadow:0 25px 60px rgba(15,98,254,0.15);
+}
 
-    .game-button:hover {
-      background: #000;
-      color: #00ff5a;
-      box-shadow: 0 0 18px rgba(0, 255, 90, 1);
-      cursor: pointer;
-    }
+/* SERVICES */
+.services-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:30px;
+  align-items: stretch;
+}
+.service-card{
+  padding:45px;
+  border-radius:22px;
+  min-height:520px;
+  transition:.4s;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.service-card:hover{
+  transform:translateY(-10px) scale(1.02);
+}
 
-    .game-button.ragebait {
-      background: #ff005c;
-      border-color: #ff005c;
-      box-shadow: 0 0 14px rgba(255, 0, 92, 0.9);
-    }
+/* Featured Service Card Style */
+.service-card.featured {
+  border: 2px solid var(--primary2);
+  transform: scale(1.08);
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.6);
+}
+.service-card.featured:hover {
+  transform: scale(1.1) translateY(-10px);
+}
 
-    .game-button.ragebait:hover {
-      background: #000;
-      color: #ff005c;
-      box-shadow: 0 0 20px rgba(255, 0, 92, 1);
-    }
+.popular-badge {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accent);
+  color: var(--deep);
+  padding: 6px 20px;
+  border-radius: 20px;
+  font-weight: 800;
+  font-size: 13px;
+  text-transform: uppercase;
+  box-shadow: 0 4px 15px rgba(255, 189, 46, 0.4);
+}
 
-    .footer {
-      margin-top: 25px;
-      font-size: 9px;
-      color: #555;
-    }
-  </style>
+.service-header{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:20px;
+}
+.price{
+  font-weight:800;
+  font-size:22px;
+  color:var(--primary);
+}
+.service-card ul{
+  list-style:none;
+  padding:0;
+  margin-top:30px;
+  margin-bottom: auto;
+}
+.service-card ul li{
+  margin-bottom:20px;
+  padding-left:30px;
+  position:relative;
+  line-height:1.8;
+  color:var(--muted);
+}
+.service-card ul li::before{
+  content:"✦";
+  position:absolute;
+  left:0;
+  color:var(--primary);
+}
+.service-btn {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  background: var(--deep);
+  color: white;
+  padding: 12px;
+  border-radius: 50px;
+  font-weight: 700;
+  margin-top: 20px;
+  transition: 0.3s;
+}
+.service-btn:hover {
+  background: var(--primary);
+}
+
+/* GALLERY */
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:25px;
+}
+.gallery-item{
+  border-radius:20px;
+  overflow:hidden;
+  padding:10px;
+  transition: .4s;
+}
+.gallery-item:hover {
+  transform: translateY(-10px) scale(1.02);
+}
+.gallery img{
+  width:100%;
+  height:220px;
+  object-fit:cover;
+  border-radius:15px;
+}
+
+/* REVIEWS */
+.reviews-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:30px;
+}
+.review-card{
+  padding:35px;
+  border-radius:20px;
+  backdrop-filter:blur(20px);
+  background:rgba(255,255,255,0.35);
+  border:1px solid rgba(255,255,255,0.6);
+  box-shadow:0 20px 50px rgba(15,98,254,0.12);
+  transition:.4s;
+}
+.review-card:hover{
+  transform:scale(1.05);
+}
+.review-name{
+  font-weight:700;
+  margin-top:15px;
+}
+
+/* CONTACT & FORM */
+.contact-wrapper{
+  display:flex;
+  gap:40px;
+  align-items: flex-start;
+}
+.contact-box{
+  padding:50px;
+  border-radius:25px;
+}
+.contact-info-card {
+  flex: 0 1 auto; /* Compact on desktop */
+}
+.booking-form-card {
+  flex: 1; /* Form takes more space */
+}
+.contact-info i{
+  color:var(--primary);
+  margin-right:10px;
+}
+form{
+  display:flex;
+  flex-direction:column;
+  gap:22px;
+}
+.field{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+input,select,textarea{
+  padding:14px;
+  border-radius:12px;
+  border:1px solid rgba(0,0,0,0.1);
+  font-family: inherit;
+}
+textarea{min-height:100px;}
+
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 10px 0;
+}
+.checkbox-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  line-height: 1.4;
+}
+.checkbox-item input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  cursor: pointer;
+}
+
+button{
+  padding:16px;
+  border:none;
+  border-radius:50px;
+  font-weight:700;
+  background:linear-gradient(90deg,var(--primary),var(--primary2));
+  color:white;
+  cursor:pointer;
+  transition: .3s;
+}
+button:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+#form-status {
+  text-align: center;
+  padding: 15px;
+  border-radius: 12px;
+  margin-top: 15px;
+  display: none;
+  font-weight: 600;
+}
+#form-status.success {
+  display: block;
+  background: #dcfce7;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+}
+#form-status.error {
+  display: block;
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+/* FOOTER */
+footer{
+  margin-top:80px;
+  padding:40px 20px;
+  text-align:center;
+  background:#081a38;
+  color:white;
+}
+
+@media(max-width:900px){
+  .services-grid,
+  .gallery,
+  .reviews-grid,
+  .contact-wrapper{
+    grid-template-columns:1fr;
+    flex-direction: column;
+  }
+  /* Makes contact card same width as form card on mobile */
+  .contact-info-card, .booking-form-card {
+    width: 100%;
+  }
+  .service-card.featured {
+    transform: scale(1);
+    margin: 20px 0;
+  }
+  .service-card.featured:hover {
+    transform: translateY(-10px) scale(1.02);
+  }
+}
+</style>
 </head>
 <body>
 
-  <div class="frame">
-    <h1>CHARLIES GAMES</h1>
+<nav class="nav" id="navbar">
+  <div class="logo">
+    <img src="files/22e2f.png" alt="Logo" class="nav-logo-small">
+    CJ Car Washing
+  </div>
+  <div>
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#work">Past Work</a>
+    <a href="#reviews">Reviews</a>
+    <a href="#contact">Book Now</a>
+  </div>
+</nav>
 
-    <div class="subtitle">
-      
-      <span>sponsored by kliplink and james</span>
-    </div>
-
-    <div class="divider"></div>
-
-    <h2>CHOOSE YOUR GAME:</h2>
-
-   <a href="rouge_survivors_1.html" class="game-button">ROUGE SURVIVORS 1</a>
-    <a href="rouge_survivors_2.html" class="game-button">ROUGE SURVIVORS 2</a>
-    <a href="ragebait.html" class="game-button ragebait">RAGEBAIT</a>
-
-
-    <div class="footer">
-      © Charlie
+<section class="hero">
+  <div>
+    <img src="files/cj-white.png" alt="CJ Car Washing Logo" style="max-width: 500px; height: auto; margin-bottom: 1px;">
+    <p>Professional mobile car washing service in Bishopthorpe.</p>
+    <div class="hero-buttons">
+      <a href="#contact">Book Now</a>
+      <a href="#work">View Past Work</a>
     </div>
   </div>
+  <a href="#about" class="scroll-indicator">
+    <span>Scroll down for more</span>
+    <i class="fa-solid fa-chevron-down"></i>
+  </a>
+</section>
+
+<section id="about" class="section">
+  <div class="section-title">About Us</div>
+  <div class="about-container">
+    <img src="files/22e2f.png" alt="CJ Car Washing" class="about-logo-big">
+    <div class="about-text">
+      We are two teenagers who live in York who have decided to start a car washing company. Our business model is making car washing affordable, easy, accessible and friendly. We book you in and clean your car at your house while you get on with your day. We accept both PayPal and Cash. <br><br>
+      We offer a few different services, perfect for every car. Your support by choosing our service really helps us out a lot and keeps this business running.
+    </div>
+  </div>
+</section>
+
+<section id="services" class="section">
+  <div class="section-title">Our Services</div>
+  <div class="services-grid">
+    <div class="service-card glass">
+      <div class="service-header">
+        <h3>Outside Wash</h3>
+        <div class="price">£10</div>
+      </div>
+      <ul>
+        <li>Full exterior hand wash</li>
+        <li>Wheel detailing and tyre shine</li>
+        <li>Hand dried finish</li>
+        <li>Exterior glass polished</li>
+      </ul>
+      <a href="#contact" class="service-btn">Book Now</a>
+    </div>
+
+    <div class="service-card glass featured">
+      <div class="popular-badge">Most Popular</div>
+      <div class="service-header">
+        <h3>Inside & Outside</h3>
+        <div class="price">£22</div>
+      </div>
+      <ul>
+        <li>Complete exterior wash</li>
+        <li>Full interior vacuum</li>
+        <li>Dashboard and trims cleaned</li>
+        <li>Interior glass polished</li>
+        <li>Door frames wiped down</li>
+      </ul>
+      <a href="#contact" class="service-btn">Book Now</a>
+    </div>
+
+    <div class="service-card glass">
+      <div class="service-header">
+        <h3>Inside Clean</h3>
+        <div class="price">£14</div>
+      </div>
+      <ul>
+        <li>Deep interior vacuum</li>
+        <li>Seats and upholstery wiped</li>
+        <li>Dashboard detailed</li>
+        <li>Interior freshen treatment</li>
+      </ul>
+      <a href="#contact" class="service-btn">Book Now</a>
+    </div>
+  </div>
+</section>
+
+<section id="work" class="section">
+  <div class="section-title">Past Work</div>
+  <div class="gallery">
+    <div class="gallery-item glass"><img src="files/IMG_1541.jpeg"></div>
+    <div class="gallery-item glass"><img src="files/IMG_2889.jpeg"></div>
+    <div class="gallery-item glass"><img src="files/IMG_2891.jpeg"></div>
+    <div class="gallery-item glass"><img src="files/IMG_2902.jpeg"></div>
+    <div class="gallery-item glass"><img src="files/IMG_8668.jpeg"></div>
+    <div class="gallery-item glass"><img src="files/IMG_8672.jpeg"></div>
+  </div>
+</section>
+
+<section id="reviews" class="section">
+  <div class="section-title">Customer Reviews</div>
+  <div class="reviews-grid">
+    <div class="review-card">
+      "These young men did my car last week and made a really good job of it. There must be many people in the village who use a car wash, give them a try, you won't be dissapointed."
+      <div class="review-name">Sally</div>
+    </div>
+    <div class="review-card">
+      "Had my car cleaned inside and out this afternoon. The boys did an amazing job, my car was really grim and was desperate for a clean, but they got stuck in and it now looks fab. Will definitely get them back and can reccomend!"
+      <div class="review-name">Emily</div>
+    </div>
+    <div class="review-card">
+      "Had my car washed by 2 young lads inside and out, they did a fantastic job and believe me the inside of mine definitely needed it. They advertised on Facebook. They were very polite and enthusiastic, a couple of young entrepreneurs in the making."
+      <div class="review-name">Ann-Marie</div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="section">
+  <div class="section-title">Contact Us</div>
+  <div class="contact-wrapper">
+    <div class="contact-box glass contact-info contact-info-card">
+      <p><i class="fa-solid fa-envelope"></i> cjcarwashing.york@gmail.com</p>
+      <p><i class="fa-solid fa-phone"></i> 07900 000000</p>
+      <p><i class="fa-brands fa-instagram"></i> @cjcarwashing.york</p>
+      <br>
+      <p><strong>Payment:</strong> PayPal and cash accepted.</p>
+      <p><strong>Service Area:</strong> Bishopthorpe only.</p>
+    </div>
+
+    <div class="contact-box glass booking-form-card">
+      <form id="booking-form" action="https://formspree.io/f/mlgwzzpo" method="POST">
+        
+        <div class="field">
+          <label>Name</label>
+          <input type="text" name="Name" placeholder="Your Name" required>
+        </div>
+
+        <div class="field">
+          <label>Email Address</label>
+          <input type="email" name="Email" placeholder="your@email.com" required>
+        </div>
+
+        <div class="field">
+          <label>Phone Number</label>
+          <input type="tel" name="Phone" placeholder="Your phone number" required>
+        </div>
+
+        <div class="field">
+          <label>Address</label>
+          <input type="text" name="Address" placeholder="House number & street" required>
+
+        <div class="field">
+          <label>Service Required</label>
+          <select name="Service" required>
+            <option value="" disabled selected>Choose a package</option>
+            <option>Outside Wash - £10</option>
+            <option>Inside & Outside - £22</option>
+            <option>Inside Clean - £14</option>
+          </select>
+        </div>
+
+        <div class="checkbox-group">
+          <label class="checkbox-item">
+            <input type="checkbox" name="Hosepipe Available"> 
+            Do you have a hosepipe we could use?
+          </label>
+
+          <label class="checkbox-item">
+            <input type="checkbox" name="Terms Accepted - Payment" required> 
+            I accept that payment is by PayPal or Cash only. *
+          </label>
+
+          <label class="checkbox-item">
+            <input type="checkbox" name="Terms Accepted - Location" required> 
+            I confirm I am located in Bishopthorpe. *
+          </label>
+        </div>
+
+        <div class="field">
+          <label>Message (Optional)</label>
+          <textarea name="Message" placeholder="Any extra details?"></textarea>
+        </div>
+
+        <button type="submit" id="submit-btn">Send Booking Request</button>
+        <div id="form-status"></div>
+        <p style="font-size: 11px; color: var(--muted); margin-top: 10px;">* Mandatory checkboxes</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  &copy; 2026 CJ Car Washing
+</footer>
+
+<script>
+window.addEventListener("scroll",function(){
+  const nav=document.getElementById("navbar");
+  if(window.scrollY>600){
+    nav.classList.add("scrolled");
+  } else {
+    nav.classList.remove("scrolled");
+  }
+});
+
+const form = document.getElementById("booking-form");
+const status = document.getElementById("form-status");
+const btn = document.getElementById("submit-btn");
+
+async function handleSubmit(event) {
+  event.preventDefault();
+  btn.disabled = true;
+  btn.innerText = "Sending...";
+  
+  const data = new FormData(event.target);
+  
+  fetch(event.target.action, {
+    method: form.method,
+    body: data,
+    headers: {
+        'Accept': 'application/json'
+    }
+  }).then(response => {
+    if (response.ok) {
+      status.innerHTML = "Thanks! Your booking request has been sent.";
+      status.className = "success";
+      form.reset();
+      btn.innerText = "Sent!";
+    } else {
+      response.json().then(data => {
+        if (Object.hasOwn(data, 'errors')) {
+          status.innerHTML = data["errors"].map(error => error["message"]).join(", ");
+        } else {
+          status.innerHTML = "Oops! There was a problem submitting your form";
+        }
+        status.className = "error";
+        btn.disabled = false;
+        btn.innerText = "Send Booking Request";
+      })
+    }
+  }).catch(error => {
+    status.innerHTML = "Oops! Connection error. Please try again.";
+    status.className = "error";
+    btn.disabled = false;
+    btn.innerText = "Send Booking Request";
+  });
+}
+
+form.addEventListener("submit", handleSubmit);
+</script>
 
 </body>
 </html>
