@@ -576,6 +576,11 @@ footer{
 
 <section id="reviews" class="section">
   <div class="section-title">Customer Reviews</div>
+  <div class="about-text">
+    All reviews are from our Facebook page, and we are proud to have such a strong reputation in the local community and are grateful for all the support we've received.
+    </div>
+    <br>
+    <br>
   <div class="reviews-grid">
     <div class="review-card">
       "These young men did my car last week and made a really good job of it. There must be many people in the village who use a car wash, give them a try, you won't be dissapointed."
@@ -597,7 +602,7 @@ footer{
   <div class="contact-wrapper">
     <div class="contact-box glass contact-info contact-info-card">
       <p><i class="fa-solid fa-envelope"></i> cjcarwashing.york@gmail.com</p>
-      <p><i class="fa-solid fa-phone"></i> 07900 000000</p>
+      <p><i class="fa-solid fa-phone"></i> 07923 930343</p>
       <p><i class="fa-brands fa-instagram"></i> @cjcarwashing.york</p>
       <br>
       <p><strong>Payment:</strong> PayPal and cash accepted.</p>
@@ -683,6 +688,12 @@ footer{
 </footer>
 
 <script>
+// Force page to start at the top on reload
+if ('scrollRestoration' in history) {
+  history.scrollRestoration = 'manual';
+}
+window.scrollTo(0, 0);
+
 window.addEventListener("scroll",function(){
   const nav=document.getElementById("navbar");
   if(window.scrollY>600){
@@ -740,3 +751,4 @@ form.addEventListener("submit", handleSubmit);
 
 </body>
 </html>
+
