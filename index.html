@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>CJ Car Washing</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -26,6 +26,7 @@ body{
   background:linear-gradient(180deg,#eef4ff,#ffffff);
   color:var(--deep);
   scroll-behavior:smooth;
+  overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
 /* NAV */
@@ -65,15 +66,25 @@ body{
   display: flex;
   align-items: center;
   gap: 10px;
+  font-size: 1.1rem;
 }
 .nav-logo-small {
   height: 30px;
   width: auto;
+  flex-shrink: 0; /* Keeps logo from squishing */
 }
 
 @media(max-width:768px){
   .nav div:last-child{
     display:none;
+  }
+  /* Responsive Logo Fix: Ensures text doesn't overflow screen */
+  .logo {
+    font-size: 0.95rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 80%;
   }
 }
 
@@ -90,6 +101,10 @@ body{
   color:white;
   padding:120px 20px 40px;
   position: relative;
+}
+.hero img {
+  max-width: 100%; /* Responsive logo image */
+  height: auto;
 }
 .hero-buttons{
   margin-top:30px;
@@ -198,7 +213,6 @@ body{
   transform:translateY(-10px) scale(1.02);
 }
 
-/* Featured Service Card Style */
 .service-card.featured {
   border: 2px solid var(--primary2);
   transform: scale(1.08);
@@ -325,11 +339,19 @@ body{
   border-radius:25px;
 }
 .contact-info-card {
-  flex: 0 1 auto; /* Compact on desktop */
+  flex: 0 1 auto;
 }
 .booking-form-card {
-  flex: 1; /* Form takes more space */
+  flex: 1;
 }
+
+.form-header {
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 25px;
+  color: var(--deep);
+}
+
 .contact-info i{
   color:var(--primary);
   margin-right:10px;
@@ -430,9 +452,9 @@ footer{
     grid-template-columns:1fr;
     flex-direction: column;
   }
-  /* Makes contact card same width as form card on mobile */
   .contact-info-card, .booking-form-card {
     width: 100%;
+    padding: 30px 20px; /* Reduced padding on mobile */
   }
   .service-card.featured {
     transform: scale(1);
@@ -449,7 +471,7 @@ footer{
 <nav class="nav" id="navbar">
   <div class="logo">
     <img src="files/22e2f.png" alt="Logo" class="nav-logo-small">
-    CJ Car Washing
+    <span>CJ Car Washing</span>
   </div>
   <div>
     <a href="#about">About</a>
@@ -496,9 +518,9 @@ footer{
       </div>
       <ul>
         <li>Full exterior hand wash</li>
-        <li>Wheel detailing</li>
+        <li>Wheel detailing and tyre shine</li>
         <li>Hand dried finish</li>
-        <li>Exterior glass cleaned</li>
+        <li>Exterior glass polished</li>
       </ul>
       <a href="#contact" class="service-btn">Book Now</a>
     </div>
@@ -513,7 +535,7 @@ footer{
         <li>Complete exterior wash</li>
         <li>Full interior vacuum</li>
         <li>Dashboard and trims cleaned</li>
-        <li>All surfaces wiped</li>
+        <li>Interior glass polished</li>
         <li>Door frames wiped down</li>
       </ul>
       <a href="#contact" class="service-btn">Book Now</a>
@@ -526,9 +548,9 @@ footer{
       </div>
       <ul>
         <li>Deep interior vacuum</li>
-        <li>All surfaces wiped</li>
+        <li>Seats and upholstery wiped</li>
         <li>Dashboard detailed</li>
-        <li>Door frames wiped down</li>
+        <li>Interior freshen treatment</li>
       </ul>
       <a href="#contact" class="service-btn">Book Now</a>
     </div>
@@ -578,6 +600,7 @@ footer{
     </div>
 
     <div class="contact-box glass booking-form-card">
+      <div class="form-header">Book an appointment</div>
       <form id="booking-form" action="https://formspree.io/f/mlgwzzpo" method="POST">
         
         <div class="field">
@@ -598,6 +621,7 @@ footer{
         <div class="field">
           <label>Address</label>
           <input type="text" name="Address" placeholder="House number & street" required>
+        </div>
 
         <div class="field">
           <label>Service Required</label>
@@ -606,6 +630,16 @@ footer{
             <option>Outside Wash - £10</option>
             <option>Inside & Outside - £22</option>
             <option>Inside Clean - £14</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Where did you hear about us?</label>
+          <select name="Source" required>
+            <option value="" disabled selected>Please select...</option>
+            <option>Facebook post</option>
+            <option>Word of mouth</option>
+            <option>Other</option>
           </select>
         </div>
 
@@ -700,5 +734,4 @@ form.addEventListener("submit", handleSubmit);
 </script>
 
 </body>
-
 </html>
