@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 <title>CJ Car Washing</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -26,7 +26,7 @@ body{
   background:linear-gradient(180deg,#eef4ff,#ffffff);
   color:var(--deep);
   scroll-behavior:smooth;
-  overflow-x: hidden; /* Prevent horizontal scroll */
+  overflow-x: hidden; /* Extra layer to prevent horizontal zoom/scroll */
 }
 
 /* NAV */
@@ -71,14 +71,14 @@ body{
 .nav-logo-small {
   height: 30px;
   width: auto;
-  flex-shrink: 0; /* Keeps logo from squishing */
+  flex-shrink: 0;
 }
 
 @media(max-width:768px){
   .nav div:last-child{
     display:none;
   }
-  /* Responsive Logo Fix: Ensures text doesn't overflow screen */
+  /* Fixed: Mobile logo text responsiveness */
   .logo {
     font-size: 0.95rem;
     white-space: nowrap;
@@ -102,10 +102,15 @@ body{
   padding:120px 20px 40px;
   position: relative;
 }
-.hero img {
-  max-width: 100%; /* Responsive logo image */
+
+/* Fixed: Added rule to ensure the main white logo scales down on mobile */
+.hero-logo-img {
+  max-width: 100%;
+  width: 500px;
   height: auto;
+  margin-bottom: 1px;
 }
+
 .hero-buttons{
   margin-top:30px;
   display:flex;
@@ -454,7 +459,7 @@ footer{
   }
   .contact-info-card, .booking-form-card {
     width: 100%;
-    padding: 30px 20px; /* Reduced padding on mobile */
+    padding: 30px 20px;
   }
   .service-card.featured {
     transform: scale(1);
@@ -484,7 +489,7 @@ footer{
 
 <section class="hero">
   <div>
-    <img src="files/cj-white.png" alt="CJ Car Washing Logo" style="max-width: 500px; height: auto; margin-bottom: 1px;">
+    <img src="files/cj-white.png" alt="CJ Car Washing Logo" class="hero-logo-img">
     <p>Professional mobile car washing service in Bishopthorpe.</p>
     <div class="hero-buttons">
       <a href="#contact">Book Now</a>
