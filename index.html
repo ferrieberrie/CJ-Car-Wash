@@ -257,6 +257,58 @@ body{
   box-shadow: 0 4px 15px rgba(255, 189, 46, 0.4);
 }
 
+.gallery-wrapper {
+  text-align: center;
+}
+
+.gallery-toggle {
+  margin-top: 30px;
+}
+
+.gallery-dropdown {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.6s ease;
+}
+
+.gallery-dropdown.open {
+  max-height: 5000px;
+}
+
+/* KEEP ORIGINAL GALLERY STYLES */
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:25px;
+  margin-top:40px;
+}
+.gallery-item{
+  border-radius:20px;
+  overflow:hidden;
+  padding:15px;
+  transition: .4s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.gallery-item:hover {
+  transform: translateY(-10px) scale(1.02);
+}
+.gallery img{
+  width:100%;
+  height:400px;
+  object-fit:cover;
+  border-radius:15px;
+}
+.gallery-label {
+  font-weight: 700;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  color: var(--primary);
+}
+
 .service-header{
   display:flex;
   justify-content:space-between;
@@ -612,36 +664,78 @@ footer{
 
 <section id="work" class="section">
   <div class="section-title">Past Work</div>
+
   <div class="about-text">
     A collection of before and after photos and just normal photos showcasing our work. We take pride in every wash to make it perfect for you.
+  </div>
+
+  <div class="gallery-wrapper">
+
+    <!-- BUTTON (same style as Book Now) -->
+    <a href="javascript:void(0)" class="service-btn gallery-toggle" onclick="toggleGallery()" id="gallery-btn">
+      View Photos
+    </a>
+
+    <!-- DROPDOWN -->
+    <div class="gallery-dropdown" id="gallery">
+
+      <div class="gallery">
+
+        <div class="gallery-item glass">
+          <div class="gallery-label">Before</div>
+          <img src="files/before1.png">
+        </div>
+        <div class="gallery-item glass">
+          <div class="gallery-label">After</div>
+          <img src="files/IMG_1541.jpeg">
+        </div>
+        <div class="gallery-item glass">
+          <div class="gallery-label">Photo</div>
+          <img src="files/cj-4.jpeg">
+        </div>
+
+        <div class="gallery-item glass">
+          <div class="gallery-label">Before</div>
+          <img src="files/before2.png">
+        </div>
+        <div class="gallery-item glass">
+          <div class="gallery-label">After</div>
+          <img src="files/IMG_2902.jpeg">
+        </div>
+        <div class="gallery-item glass">
+          <div class="gallery-label">Photo</div>
+          <img src="files/IMG_8672.jpeg">
+        </div>
+
+        <div class="gallery-item glass">
+          <div class="gallery-label">Before</div>
+          <img src="files/cj-2.jpeg">
+        </div>
+        <div class="gallery-item glass">
+          <div class="gallery-label">After</div>
+          <img src="files/cj-1.jpeg">
+        </div>
+        <div class="gallery-item glass">
+          <div class="gallery-label">Photo</div>
+          <img src="files/IMG_2891.jpeg">
+        </div>
+
+        <div class="gallery-item glass">
+          <div class="gallery-label">Before</div>
+          <img src="files/cj-3.jpeg">
+        </div>
+        <div class="gallery-item glass">
+          <div class="gallery-label">After</div>
+          <img src="files/IMG_2889.jpeg">
+        </div>
+        <div class="gallery-item glass">
+          <div class="gallery-label">Photo</div>
+          <img src="files/IMG_8668.jpeg">
+        </div>
+
+      </div>
     </div>
-    <br>
-    <br>
-  <div class="gallery">
-    <div class="gallery-item glass">
-      <div class="gallery-label">Before</div>
-      <img src="files/before1.png">
-    </div>
-    <div class="gallery-item glass">
-      <div class="gallery-label">After</div>
-      <img src="files/IMG_1541.jpeg">
-    </div>
-    <div class="gallery-item glass">
-      <div class="gallery-label">Photo</div>
-      <img src="files/IMG_2889.jpeg">
-    </div>
-    <div class="gallery-item glass">
-      <div class="gallery-label">Before</div>
-      <img src="files/before2.png">
-    </div>
-    <div class="gallery-item glass">
-      <div class="gallery-label">After</div>
-      <img src="files/IMG_2902.jpeg">
-    </div>
-    <div class="gallery-item glass">
-      <div class="gallery-label">Photo</div>
-      <img src="files/IMG_8672.jpeg">
-    </div>
+
   </div>
 </section>
 
@@ -830,6 +924,19 @@ window.addEventListener('load', () => {
     window.scrollTo(0, 0);
   }, 10);
 });
+
+function toggleGallery() {
+  const gallery = document.getElementById("gallery");
+  const btn = document.getElementById("gallery-btn");
+
+  gallery.classList.toggle("open");
+
+  if (gallery.classList.contains("open")) {
+    btn.innerText = "Hide Photos";
+  } else {
+    btn.innerText = "View Photos";
+  }
+}
 </script>
 
 </body>
