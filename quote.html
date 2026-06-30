@@ -1,0 +1,696 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<title>Get a Quote – CJ Car Washing</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<link rel="icon" type="image/x-icon" href="files/22e2f.png">
+
+<style>
+:root{
+  --primary:#0f62fe;
+  --primary2:#3ea6ff;
+  --deep:#081a38;
+  --muted:#6b7c93;
+  --accent:#ffbd2e;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Inter,sans-serif;
+  background:linear-gradient(180deg,#eef4ff,#ffffff);
+  color:var(--deep);
+  scroll-behavior:smooth;
+  overflow-x:hidden;
+}
+
+/* ── NAV ── */
+.nav{
+  position:fixed;
+  top:15px;left:15px;right:15px;
+  padding:12px 20px;
+  border-radius:16px;
+  backdrop-filter:blur(14px);
+  background:rgba(255,255,255,0.85);
+  border:1px solid rgba(255,255,255,0.6);
+  box-shadow:0 10px 30px rgba(0,0,0,0.08);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  z-index:1000;
+}
+.logo{
+  font-weight:800;
+  color:var(--deep);
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:1.1rem;
+  text-decoration:none;
+}
+.nav-logo-small{height:30px;width:auto;flex-shrink:0;}
+.nav-links{display:flex;align-items:center;gap:4px;}
+.nav-links a{
+  text-decoration:none;
+  font-weight:600;
+  padding:7px 12px;
+  border-radius:10px;
+  color:var(--deep);
+  transition:.2s;
+  white-space:nowrap;
+}
+.nav-links a:hover{background:rgba(15,98,254,0.08);}
+.nav-links a.book-btn{
+  background:var(--primary);
+  color:white !important;
+  margin-left:6px;
+}
+
+/* Hamburger */
+.hamburger{
+  display:none;
+  flex-direction:column;
+  gap:5px;
+  cursor:pointer;
+  padding:6px;
+  background:none;
+  border:none;
+}
+.hamburger span{
+  display:block;width:24px;height:2px;
+  background:var(--deep);border-radius:2px;transition:.3s;
+}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
+
+/* Mobile drawer */
+.mobile-menu{
+  display:none;
+  position:fixed;
+  top:0;left:0;right:0;bottom:0;
+  background:rgba(8,26,56,0.97);
+  z-index:999;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:20px;
+}
+.mobile-menu.open{display:flex;}
+.mobile-menu a{
+  color:white;text-decoration:none;
+  font-size:1.5rem;font-weight:700;
+  padding:12px 30px;border-radius:14px;transition:.2s;
+}
+.mobile-menu a:hover{background:rgba(255,255,255,0.1);}
+.mobile-menu a.book-btn{background:var(--primary);margin-top:10px;}
+.mobile-close{
+  position:absolute;top:25px;right:25px;
+  background:none;border:none;color:white;font-size:1.8rem;cursor:pointer;
+}
+
+@media(max-width:768px){
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
+}
+
+/* ── PAGE HEADER ── */
+.page-header{
+  padding:140px 20px 60px;
+  text-align:center;
+  background:linear-gradient(135deg,var(--deep),#1a3a6e);
+  color:white;
+}
+.page-header h1{font-size:2.5rem;font-weight:800;margin:0 0 12px;}
+.page-header p{opacity:.8;font-size:1.05rem;max-width:520px;margin:0 auto;}
+
+/* ── MAIN LAYOUT ── */
+.quote-wrap{
+  max-width:1100px;
+  margin:60px auto 80px;
+  padding:0 20px;
+  display:grid;
+  grid-template-columns:340px 1fr;
+  gap:40px;
+  align-items:start;
+}
+
+/* ── SIDEBAR ── */
+.sidebar{display:flex;flex-direction:column;gap:24px;}
+.info-card{
+  padding:32px;
+  border-radius:22px;
+  backdrop-filter:blur(20px);
+  background:rgba(255,255,255,0.45);
+  border:1px solid rgba(255,255,255,0.6);
+  box-shadow:0 20px 50px rgba(15,98,254,0.12);
+}
+.info-card h3{margin:0 0 16px;font-size:1rem;font-weight:800;color:var(--deep);}
+.info-card p{margin:0 0 12px;color:var(--muted);font-size:.95rem;line-height:1.6;}
+.info-card p:last-child{margin:0;}
+.info-card i{color:var(--primary);margin-right:8px;width:18px;}
+
+.price-list{list-style:none;padding:0;margin:0;}
+.price-list li{
+  display:flex;justify-content:space-between;
+  padding:10px 0;
+  border-bottom:1px solid rgba(0,0,0,0.06);
+  font-size:.95rem;
+  color:var(--muted);
+}
+.price-list li:last-child{border:none;}
+.price-list .pl-name{font-weight:600;color:var(--deep);}
+.price-list .pl-price{font-weight:700;color:var(--primary);}
+
+/* ── FORM CARD ── */
+.form-card{
+  padding:50px;
+  border-radius:25px;
+  backdrop-filter:blur(20px);
+  background:rgba(255,255,255,0.45);
+  border:1px solid rgba(255,255,255,0.6);
+  box-shadow:0 25px 60px rgba(15,98,254,0.15);
+}
+.form-header{font-size:24px;font-weight:800;margin-bottom:25px;color:var(--deep);}
+.form-section-title{
+  margin:28px 0 14px;
+  font-size:1rem;font-weight:700;
+  border-bottom:1px solid rgba(0,0,0,0.08);
+  padding-bottom:8px;
+  color:var(--deep);
+}
+
+form{display:flex;flex-direction:column;gap:18px;}
+.field{display:flex;flex-direction:column;gap:7px;}
+.field label{font-weight:600;font-size:.9rem;color:var(--deep);}
+input,select,textarea{
+  padding:13px 14px;
+  border-radius:12px;
+  border:1px solid rgba(0,0,0,0.1);
+  background:white;
+  font-family:inherit;
+  font-size:.95rem;
+  color:var(--deep);
+  transition:.2s;
+}
+input:focus,select:focus,textarea:focus{
+  outline:none;
+  border-color:var(--primary);
+  box-shadow:0 0 0 3px rgba(15,98,254,0.12);
+}
+textarea{min-height:90px;resize:vertical;}
+input[type="hidden"]{display:none;}
+
+.checkbox-group{display:flex;flex-direction:column;gap:12px;margin:6px 0;}
+.checkbox-item{
+  display:flex;align-items:flex-start;gap:10px;
+  font-size:.92rem;cursor:pointer;line-height:1.5;color:var(--muted);
+}
+.checkbox-item input{width:18px;height:18px;margin:1px 0 0;cursor:pointer;flex-shrink:0;}
+
+/* Budget Prompt Text */
+.budget-notice {
+  background: rgba(255, 189, 46, 0.08);
+  border-left: 4px solid var(--accent);
+  padding: 14px 18px;
+  border-radius: 8px;
+  font-size: .92rem;
+  color: var(--deep);
+  line-height: 1.5;
+  margin-top: 10px;
+}
+
+/* Price / time summary */
+.price-time-summary{
+  margin-top:8px;
+  padding:18px 22px;
+  border-radius:14px;
+  background:rgba(15,98,254,0.07);
+  border:1px solid rgba(15,98,254,0.15);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  flex-wrap:wrap;
+}
+.summary-item{display:flex;flex-direction:column;gap:3px;}
+.summary-label{
+  font-size:.73rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:.08em;
+  color:var(--muted);
+}
+.summary-value{font-size:1.35rem;font-weight:800;color:var(--primary);}
+.summary-divider{width:1px;height:40px;background:rgba(15,98,254,0.2);}
+
+button[type="submit"]{
+  padding:16px;
+  border:none;
+  border-radius:50px;
+  font-weight:700;font-size:1rem;
+  background:linear-gradient(90deg,var(--primary),var(--primary2));
+  color:white;
+  cursor:pointer;
+  transition:.3s;
+  margin-top:6px;
+}
+button[type="submit"]:hover{opacity:.9;transform:translateY(-2px);}
+button[type="submit"]:disabled{background:#ccc;cursor:not-allowed;transform:none;}
+
+#form-status{
+  text-align:center;padding:15px;border-radius:12px;
+  margin-top:10px;display:none;font-weight:600;
+}
+#form-status.success{display:block;background:#dcfce7;color:#166534;border:1px solid #bbf7d0;}
+#form-status.error{display:block;background:#fee2e2;color:#991b1b;border:1px solid #fecaca;}
+
+/* ── FOOTER ── */
+footer{
+  padding:40px 20px;text-align:center;
+  background:#081a38;color:white;
+}
+footer a{color:var(--primary2);text-decoration:none;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .quote-wrap{grid-template-columns:1fr;}
+  .form-card{padding:30px 20px;}
+}
+@media(max-width:480px){
+  .summary-divider{display:none;}
+  .price-time-summary{flex-direction:column;align-items:flex-start;}
+  .page-header h1{font-size:1.8rem;}
+}
+</style>
+</head>
+<body>
+
+<div class="mobile-menu" id="mobile-menu">
+  <button class="mobile-close" id="mobile-close" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></button>
+  <a href="index.html#about" onclick="closeMenu()">About</a>
+  <a href="services.html" onclick="closeMenu()">Services</a>
+  <a href="gallery.html" onclick="closeMenu()">Gallery</a>
+  <a href="index.html#reviews" onclick="closeMenu()">Reviews</a>
+  <a href="index.html#contact" onclick="closeMenu()">Contact</a>
+  <a href="quote.html" class="book-btn" onclick="closeMenu()">Book Now</a>
+</div>
+
+<nav class="nav" id="navbar">
+  <a href="index.html" class="logo">
+    <img src="files/22e2f.png" alt="Logo" class="nav-logo-small">
+    <span>CJ Car Washing</span>
+  </a>
+  <div class="nav-links">
+    <a href="index.html#about">About</a>
+    <a href="services.html">Services</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="index.html#reviews">Reviews</a>
+    <a href="index.html#contact">Contact</a>
+    <a href="quote.html" class="book-btn">Book Now</a>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="page-header">
+  <h1>Get a Quote &amp; Book</h1>
+  <p>Fill in a few details below and we'll get back to you to confirm your appointment.</p>
+</div>
+
+<div class="quote-wrap">
+
+  <aside class="sidebar">
+
+    <div class="info-card">
+      <h3>Our Prices</h3>
+      <ul class="price-list">
+        <li><span class="pl-name">Outside Wash</span><span class="pl-price">£14</span></li>
+        <li><span class="pl-name">Inside Clean</span><span class="pl-price">£14</span></li>
+        <li><span class="pl-name">Maintenance Wash</span><span class="pl-price">£15</span></li>
+        <li><span class="pl-name">Inside &amp; Outside</span><span class="pl-price">£22</span></li>
+      </ul>
+    </div>
+
+    <div class="info-card">
+      <h3>Contact Us Directly</h3>
+      <p><i class="fa-solid fa-envelope"></i> james@cjcarwashing.com</p>
+      <p><i class="fa-solid fa-phone"></i> 07923 930343</p>
+      <p><i class="fa-brands fa-instagram"></i> @cjcarwashing.york</p>
+    </div>
+
+    <div class="info-card">
+      <h3>Good to Know</h3>
+      <p><i class="fa-solid fa-location-dot"></i> We cover Bishopthorpe, Acaster Malbis, Copmanthorpe, Woodthorpe, Dringhouses, Fulford, Deighton, Escrick and Riccall only.</p>
+      <p><i class="fa-solid fa-credit-card"></i> Card and cash both accepted.</p>
+      <p><i class="fa-solid fa-clock"></i> We'll confirm your time slot after receiving your request.</p>
+    </div>
+
+  </aside>
+
+  <div class="form-card">
+    <div class="form-header">Booking Request</div>
+
+    <form id="booking-form" action="https://formspree.io/f/mlgwzzpo" method="POST">
+
+      <input type="hidden" name="Total Cost" id="hidden-total-cost">
+      <input type="hidden" name="Estimated Time" id="hidden-estimated-time">
+
+      <h3 class="form-section-title">Your Details</h3>
+
+      <div class="field">
+        <label>Name</label>
+        <input type="text" name="Name" required placeholder="Your full name">
+      </div>
+      <div class="field">
+        <label>Email</label>
+        <input type="email" name="Email" required placeholder="you@example.com">
+      </div>
+      <div class="field">
+        <label>Phone</label>
+        <input type="tel" name="Phone" required placeholder="07700 000000">
+      </div>
+      
+      <div class="field">
+        <label>Preferred Contact Method</label>
+        <div class="checkbox-group" style="flex-direction: row; gap: 15px; margin: 4px 0 8px;">
+          <label class="checkbox-item">
+            <input type="radio" name="Preferred Contact" value="Message" checked> Message
+          </label>
+          <label class="checkbox-item">
+            <input type="radio" name="Preferred Contact" value="WhatsApp"> WhatsApp
+          </label>
+          <label class="checkbox-item">
+            <input type="radio" name="Preferred Contact" value="Email"> Email
+          </label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Address</label>
+        <input type="text" name="Address" required placeholder="Your address">
+      </div>
+      <div class="field">
+        <label>Where did you hear about us?</label>
+        <select name="Source" required>
+          <option value="" disabled selected>Please select…</option>
+          <option>Facebook post</option>
+          <option>Word of mouth</option>
+          <option>Nextdoor app</option>
+          <option>Flyers</option>
+          <option>Advertisements</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <h3 class="form-section-title">Service Details</h3>
+
+      <div class="field">
+        <label>Service Required</label>
+        <select name="Service" id="service-select" required>
+          <option value="" disabled selected>Choose a service</option>
+          <option value="22" data-time="45">Inside &amp; Outside Valet (£22)</option>
+          <option value="14" data-time="25">Inside Valet (£14)</option>
+          <option value="14" data-time="25">Outside Valet (£14)</option>
+          <option value="15" data-time="30">Maintenance Wash (£15)</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Car Model</label>
+        <input type="text" name="Car Model" required placeholder="e.g. Ford Focus, VW Golf…">
+      </div>
+
+      <h3 class="form-section-title">Car Size</h3>
+      <div class="checkbox-group">
+        <label class="checkbox-item">
+          <input type="radio" name="Car Size" class="price-option" value="0" data-time="0" checked>
+          Small Car (+£0)
+        </label>
+        <label class="checkbox-item">
+          <input type="radio" name="Car Size" class="price-option" value="2" data-time="0">
+          Medium Car (SUV, Large family car) (+£2)
+        </label>
+        <label class="checkbox-item">
+          <input type="radio" name="Car Size" class="price-option" value="4" data-time="15">
+          Large car (7 seater, pickup, small van) (+£4)
+        </label>
+      </div>
+
+      <h3 class="form-section-title" id="car-state-title">Additional Options - Car State</h3>
+      <div class="checkbox-group" id="car-state-group">
+        <label class="checkbox-item" id="condition-good-option">
+          <input type="radio" name="Car Condition" class="price-option" value="0" data-time="0" checked>
+          Good / Reasonable condition (+£0)
+        </label>
+        <label class="checkbox-item" id="condition-dirty-option">
+          <input type="radio" name="Car Condition" class="price-option" value="2" data-time="5">
+          Dirty (+£2)
+        </label>
+        <label class="checkbox-item" id="condition-very-dirty-option">
+          <input type="radio" name="Car Condition" class="price-option" value="3" data-time="10">
+          Very Dirty (+£3)
+        </label>
+      </div>
+
+      <h3 class="form-section-title">Additional Options</h3>
+      <div class="checkbox-group">
+        <label class="checkbox-item" id="stain-option">
+          <input type="checkbox" class="price-option" value="4" data-time="5" name="Stain Removal">
+          Stain removal (+£4)
+        </label>
+        <label class="checkbox-item" id="pet-hair-option">
+          <input type="checkbox" class="price-option" value="4" data-time="10" name="Pet Hair Removal" id="pet-hair-input">
+          <span id="pet-hair-text">Pet hair removal (+£4)</span>
+        </label>
+      </div>
+
+      <div class="price-time-summary">
+        <div class="summary-item">
+          <span class="summary-label">Estimated Total</span>
+          <span class="summary-value">£<span id="total-price">0</span></span>
+        </div>
+        <div class="summary-divider" style="display: none;"></div>
+        <div class="summary-item" style="display: none;">
+          <span class="summary-label">Estimated Time</span>
+          <span class="summary-value"><span id="total-time">–</span></span>
+        </div>
+      </div>
+
+      <h3 class="form-section-title">Last Details</h3>
+
+      <div class="checkbox-group">
+        <label class="checkbox-item">
+          <input type="checkbox" name="Hosepipe Available">
+          Do you have a hosepipe we could use?
+        </label>
+        <label class="checkbox-item">
+          <input type="checkbox" name="Terms Accepted - Payment" required>
+          I accept that payment is by Card, PayPal or Cash only. *
+        </label>
+        <label class="checkbox-item">
+          <input type="checkbox" name="Terms Accepted - Location" required>
+          I confirm I am located in Bishopthorpe, Acaster Malbis or Fulford. *
+        </label>
+        <label class="checkbox-item" id="maintenance-checkbox" style="display:none;">
+          <input type="checkbox" id="maintenance-input" name="Maintenance Requirement">
+          I have had a car wash by CJ Car Wash within a month. *
+        </label>
+      </div>
+
+      <div class="field">
+        <label>Message (Optional)</label>
+        <textarea name="Message" placeholder="Anything else we should know?"></textarea>
+      </div>
+
+      <div class="budget-notice">
+        <strong>Looking for a budget option?</strong> Our <strong>Maintenance Wash</strong> is designed to keep your car looking fresh all year round. Available <strong>only if you have had a car wash by us within a month.</strong> If you are a new customer, you will  be eligible after your first wash.
+      </div>
+
+      <button type="submit" id="submit-btn">Send Booking Request</button>
+      <div id="form-status"></div>
+
+    </form>
+  </div>
+
+</div>
+
+<footer>
+  &copy; 2026 CJ Car Washing &nbsp;·&nbsp;
+  <a href="https://www.instagram.com/cjcarwashing.york/" target="_blank">Instagram</a> &nbsp;·&nbsp;
+  <a href="index.html">Home</a>
+</footer>
+
+<script>
+// Hamburger
+const hamburger=document.getElementById("hamburger");
+const mobileMenu=document.getElementById("mobile-menu");
+const mobileClose=document.getElementById("mobile-close");
+hamburger.addEventListener("click",()=>{
+  hamburger.classList.add("open");
+  mobileMenu.classList.add("open");
+  document.body.style.overflow="hidden";
+});
+mobileClose.addEventListener("click",closeMenu);
+function closeMenu(){
+  hamburger.classList.remove("open");
+  mobileMenu.classList.remove("open");
+  document.body.style.overflow="";
+}
+
+// Form price/time calculator
+const serviceSelect=document.getElementById("service-select");
+const totalPriceEl=document.getElementById("total-price");
+const totalTimeEl=document.getElementById("total-time");
+const hiddenTotalCost=document.getElementById("hidden-total-cost");
+const hiddenEstimatedTime=document.getElementById("hidden-estimated-time");
+const extras=document.querySelectorAll(".price-option");
+const maintenanceCheckbox=document.getElementById("maintenance-checkbox");
+const maintenanceInput=document.getElementById("maintenance-input");
+
+// Target specific configuration nodes
+const petHairOption=document.getElementById("pet-hair-option");
+const petHairInput=document.getElementById("pet-hair-input");
+const petHairText=document.getElementById("pet-hair-text");
+const stainOption=document.getElementById("stain-option");
+const stainInput=stainOption.querySelector("input");
+const carStateTitle=document.getElementById("car-state-title");
+const carStateGroup=document.getElementById("car-state-group");
+const conditionGoodInput=document.getElementById("condition-good-option").querySelector("input");
+const budgetNoticeEl=document.querySelector(".budget-notice");
+
+function formatTime(m){
+  if(!m||m===0)return"–";
+  if(m<60)return m+" min";
+  const h=Math.floor(m/60),r=m%60;
+  return r>0?h+"h "+r+"min":h+"h";
+}
+
+function updateSummary(){
+  let cost=0,time=0;
+  const sel=serviceSelect.options[serviceSelect.selectedIndex];
+  if(serviceSelect.value){
+    cost+=parseInt(serviceSelect.value);
+    time+=parseInt(sel.getAttribute("data-time")||0);
+  }
+  extras.forEach(e=>{
+    // Skip calculations if the parent layout or choice group is hidden
+    const parentLabel = e.closest("label");
+    if(parentLabel && parentLabel.style.display === "none") return;
+    const parentGroup = e.closest(".checkbox-group");
+    if(parentGroup && parentGroup.style.display === "none") return;
+
+    if(e.checked){cost+=parseInt(e.value);time+=parseInt(e.getAttribute("data-time")||0);}
+  });
+  totalPriceEl.textContent=cost;
+  totalTimeEl.textContent=serviceSelect.value?formatTime(time):"–";
+  hiddenTotalCost.value=cost>0?"£"+cost:"";
+  hiddenEstimatedTime.value=serviceSelect.value?formatTime(time): "";
+}
+
+serviceSelect.addEventListener("change",()=>{
+  const t=serviceSelect.options[serviceSelect.selectedIndex].text;
+
+  // Global default resets
+  maintenanceCheckbox.style.display="none";
+  maintenanceInput.required=false;
+  petHairOption.style.display="flex";
+  stainOption.style.display="flex";
+  carStateTitle.style.display="block";
+  carStateGroup.style.display="flex";
+  
+  // Reset standard pet hair values
+  petHairInput.value="4";
+  petHairText.textContent="Pet hair removal (+£4)";
+
+  // Global default budget notice
+  budgetNoticeEl.innerHTML = '<strong>Looking for a budget option?</strong> Our <strong>Maintenance Wash</strong> is designed to keep your car looking fresh all year round. Available <strong>only if you have had a car wash by us within a month.</strong>';
+  
+  // Maintenance Wash Logic rules
+  if(t.includes("Maintenance Wash")){
+    maintenanceCheckbox.style.display="flex";
+    maintenanceInput.required=true;
+    
+    // Hide Stain Removal
+    stainOption.style.display="none";
+    stainInput.checked=false;
+    
+    // Hide Car State Options completely
+    carStateTitle.style.display="none";
+    carStateGroup.style.display="none";
+    conditionGoodInput.checked = true;
+
+    // Apply reduced pricing on pet hair removal for maintenance wash
+    petHairInput.value="2";
+    petHairText.textContent="Pet hair removal (+£2)";
+
+    // Update Note for Maintenance Wash Selection
+    budgetNoticeEl.innerHTML = 'Maintenance wash is only available for customers who have had their car washed by <strong>CJ Car Washing within a month.</strong> Please make sure this is correct before submitting.';
+  } else if(t.includes("Outside") && !t.includes("Inside")) {
+    maintenanceInput.checked=false;
+    
+    // Hide Stain and Pet Hair Options completely for Outside Wash
+    stainOption.style.display="none";
+    stainInput.checked=false;
+    petHairOption.style.display="none";
+    petHairInput.checked=false;
+  } else {
+    maintenanceInput.checked=false;
+  }
+
+  updateSummary();
+});
+
+extras.forEach(e=>e.addEventListener("change",updateSummary));
+updateSummary();
+
+// Form submit
+const form=document.getElementById("booking-form");
+const status=document.getElementById("form-status");
+const btn=document.getElementById("submit-btn");
+
+form.addEventListener("submit",async function(e){
+  e.preventDefault();
+  updateSummary();
+  btn.disabled=true;
+  btn.innerText="Sending…";
+  const data=new FormData(e.target);
+  fetch(e.target.action,{
+    method:"POST",body:data,
+    headers:{'Accept':'application/json'}
+  }).then(r=>{
+    if(r.ok){
+      status.innerHTML="Thanks! Your booking request has been sent. We'll be in touch to confirm your slot.";
+      status.className="success";
+      form.reset();
+      petHairOption.style.display="flex";
+      stainOption.style.display="flex";
+      carStateTitle.style.display="block";
+      carStateGroup.style.display="flex";
+      maintenanceCheckbox.style.display="none";
+      maintenanceInput.required=false;
+      petHairInput.value="4";
+      petHairText.textContent="Pet hair removal (+£4)";
+      budgetNoticeEl.innerHTML = '<strong>Looking for a budget option?</strong> Our <strong>Maintenance Wash</strong> is designed to keep your car looking fresh all year round. Available <strong>only if you have had a car wash by us within a month.</strong>';
+      updateSummary();
+      btn.innerText="Send Booking Request";
+      btn.disabled=false;
+    } else {
+      r.json().then(d=>{
+        status.innerHTML=d.errors?d.errors.map(x=>x.message).join(", "):"Something went wrong. Please try again or contact us directly.";
+        status.className="error";
+        btn.disabled=false;btn.innerText="Send Booking Request";
+      });
+    }
+  }).catch(()=>{
+    status.innerHTML="Connection error. Please try again or contact us directly.";
+    status.className="error";
+    btn.disabled=false;btn.innerText="Send Booking Request";
+  });
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,510 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<title>Services – CJ Car Washing</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<link rel="icon" type="image/x-icon" href="files/22e2f.png">
+
+<style>
+:root{
+  --primary:#0f62fe;
+  --primary2:#3ea6ff;
+  --deep:#081a38;
+  --muted:#6b7c93;
+  --accent:#ffbd2e;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Inter,sans-serif;
+  background:linear-gradient(180deg,#eef4ff,#ffffff);
+  color:var(--deep);
+  scroll-behavior:smooth;
+  overflow-x:hidden;
+}
+
+/* ── NAV ── */
+.nav{
+  position:fixed;
+  top:15px;left:15px;right:15px;
+  padding:12px 20px;
+  border-radius:16px;
+  backdrop-filter:blur(14px);
+  background:rgba(255,255,255,0.85);
+  border:1px solid rgba(255,255,255,0.6);
+  box-shadow:0 10px 30px rgba(0,0,0,0.08);
+  display:flex;justify-content:space-between;align-items:center;
+  z-index:1000;
+}
+.logo{
+  font-weight:800;color:var(--deep);
+  display:flex;align-items:center;gap:10px;
+  font-size:1.1rem;text-decoration:none;
+}
+.nav-logo-small{height:30px;width:auto;flex-shrink:0;}
+.nav-links{display:flex;align-items:center;gap:4px;}
+.nav-links a{
+  text-decoration:none;font-weight:600;
+  padding:7px 12px;border-radius:10px;
+  color:var(--deep);transition:.2s;white-space:nowrap;
+}
+.nav-links a:hover{background:rgba(15,98,254,0.08);}
+.nav-links a.book-btn{background:var(--primary);color:white !important;margin-left:6px;}
+
+/* Hamburger */
+.hamburger{
+  display:none;flex-direction:column;gap:5px;
+  cursor:pointer;padding:6px;background:none;border:none;
+}
+.hamburger span{
+  display:block;width:24px;height:2px;
+  background:var(--deep);border-radius:2px;transition:.3s;
+}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
+
+/* Mobile drawer */
+.mobile-menu{
+  display:none;position:fixed;
+  top:0;left:0;right:0;bottom:0;
+  background:rgba(8,26,56,0.97);
+  z-index:999;flex-direction:column;
+  align-items:center;justify-content:center;gap:20px;
+}
+.mobile-menu.open{display:flex;}
+.mobile-menu a{
+  color:white;text-decoration:none;
+  font-size:1.5rem;font-weight:700;
+  padding:12px 30px;border-radius:14px;transition:.2s;
+}
+.mobile-menu a:hover{background:rgba(255,255,255,0.1);}
+.mobile-menu a.book-btn{background:var(--primary);margin-top:10px;}
+.mobile-close{
+  position:absolute;top:25px;right:25px;
+  background:none;border:none;color:white;font-size:1.8rem;cursor:pointer;
+}
+
+@media(max-width:768px){
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
+}
+
+/* ── PAGE HEADER ── */
+.page-header{
+  padding:140px 20px 70px;
+  text-align:center;
+  background:linear-gradient(135deg,var(--deep),#1a3a6e);
+  color:white;
+}
+.page-header h1{font-size:2.5rem;font-weight:800;margin:0 0 12px;}
+.page-header p{opacity:.8;font-size:1.05rem;max-width:520px;margin:0 auto;}
+
+/* ── SERVICES LAYOUT ── */
+.services-wrap{
+  max-width:1100px;
+  margin:70px auto 80px;
+  padding:0 20px;
+  display:flex;
+  flex-direction:column;
+  gap:50px;
+}
+
+/* Service detail card */
+.svc-detail{
+  display:grid;
+  grid-template-columns:1fr 2fr;
+  gap:0;
+  border-radius:26px;
+  overflow:hidden;
+  backdrop-filter:blur(20px);
+  background:rgba(255,255,255,0.4);
+  border:1px solid rgba(255,255,255,0.6);
+  box-shadow:0 25px 60px rgba(15,98,254,0.13);
+  transition:.4s;
+}
+.svc-detail:hover{transform:translateY(-6px);box-shadow:0 35px 70px rgba(15,98,254,0.18);}
+
+.svc-detail.featured{
+  border:2px solid var(--primary2);
+}
+
+.svc-aside{
+  background:linear-gradient(160deg,var(--primary),var(--primary2));
+  padding:50px 36px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:flex-start;
+  color:white;
+  position:relative;
+  gap:12px;
+}
+.svc-aside.accent-bg{
+  background:linear-gradient(160deg,#1e3a5f,var(--deep));
+}
+
+.popular-tag{
+  display:inline-block;
+  background:var(--accent);
+  color:var(--deep);
+  padding:5px 14px;
+  border-radius:20px;
+  font-weight:800;
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  margin-bottom:6px;
+}
+.svc-aside h2{margin:0;font-size:1.7rem;font-weight:800;}
+.svc-price{
+  font-size:3rem;
+  font-weight:800;
+  letter-spacing:-1px;
+}
+.svc-price span{font-size:1.2rem;font-weight:400;opacity:.7;}
+.svc-time{
+  display:flex;align-items:center;gap:8px;
+  font-size:.95rem;opacity:.85;
+}
+
+.svc-body{
+  padding:50px 50px;
+}
+.svc-body h3{
+  margin:0 0 14px;
+  font-size:1.15rem;
+  font-weight:700;
+  color:var(--deep);
+}
+.svc-body p{
+  color:var(--muted);
+  line-height:1.85;
+  font-size:.97rem;
+  margin:0 0 24px;
+}
+
+.svc-list{
+  list-style:none;
+  padding:0;margin:0 0 30px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px 20px;
+}
+.svc-list li{
+  display:flex;align-items:flex-start;gap:9px;
+  font-size:.93rem;color:var(--muted);line-height:1.5;
+}
+.svc-list li::before{
+  content:"✦";
+  color:var(--primary);
+  flex-shrink:0;
+  margin-top:1px;
+}
+
+.svc-note{
+  font-size:.85rem;
+  color:var(--muted);
+  padding:12px 18px;
+  background:rgba(15,98,254,0.06);
+  border-left:3px solid var(--primary2);
+  border-radius:0 10px 10px 0;
+  margin-bottom:28px;
+  line-height:1.6;
+}
+
+.book-link{
+  display:inline-block;
+  padding:13px 30px;
+  background:var(--deep);
+  color:white;
+  border-radius:50px;
+  font-weight:700;
+  text-decoration:none;
+  transition:.3s;
+}
+.book-link:hover{background:var(--primary);}
+
+/* Extras section */
+.extras-section{
+  max-width:1100px;
+  margin:0 auto 80px;
+  padding:0 20px;
+}
+.extras-title{
+  font-size:1.5rem;font-weight:800;
+  margin-bottom:24px;color:var(--deep);
+}
+.extras-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:20px;
+}
+.extra-card{
+  padding:28px 24px;
+  border-radius:18px;
+  backdrop-filter:blur(20px);
+  background:rgba(255,255,255,0.4);
+  border:1px solid rgba(255,255,255,0.6);
+  box-shadow:0 15px 40px rgba(15,98,254,0.1);
+  transition:.3s;
+}
+.extra-card:hover{transform:translateY(-5px);}
+.extra-icon{
+  font-size:1.5rem;margin-bottom:10px;color:var(--primary);
+}
+.extra-name{font-weight:700;font-size:.95rem;margin-bottom:6px;color:var(--deep);}
+.extra-desc{font-size:.85rem;color:var(--muted);line-height:1.55;}
+.extra-price{
+  font-weight:800;color:var(--primary);
+  margin-top:12px;font-size:1.05rem;
+}
+
+/* CTA */
+.services-cta{
+  text-align:center;
+  padding:70px 20px;
+  background:linear-gradient(135deg,var(--primary),var(--primary2));
+  border-radius:28px;
+  color:white;
+  margin:0 20px 60px;
+}
+.services-cta h2{font-size:1.8rem;margin:0 0 10px;}
+.services-cta p{opacity:.9;margin:0 0 24px;}
+.services-cta a{
+  display:inline-block;
+  padding:14px 32px;
+  background:white;color:var(--primary);
+  border-radius:50px;font-weight:800;
+  text-decoration:none;transition:.3s;
+}
+.services-cta a:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(0,0,0,0.2);}
+
+/* Footer */
+footer{padding:40px 20px;text-align:center;background:#081a38;color:white;}
+footer a{color:var(--primary2);text-decoration:none;}
+
+/* Responsive */
+@media(max-width:860px){
+  .svc-detail{grid-template-columns:1fr;}
+  .svc-aside{padding:36px 30px;}
+  .svc-price{font-size:2.3rem;}
+  .svc-body{padding:36px 30px;}
+  .svc-list{grid-template-columns:1fr;}
+  .extras-grid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:500px){
+  .extras-grid{grid-template-columns:1fr;}
+  .page-header h1{font-size:1.8rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- ── MOBILE MENU ── -->
+<div class="mobile-menu" id="mobile-menu">
+  <button class="mobile-close" id="mobile-close" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></button>
+  <a href="index.html#about" onclick="closeMenu()">About</a>
+  <a href="services.html" onclick="closeMenu()">Services</a>
+  <a href="gallery.html" onclick="closeMenu()">Gallery</a>
+  <a href="index.html#reviews" onclick="closeMenu()">Reviews</a>
+  <a href="index.html#contact" onclick="closeMenu()">Contact</a>
+  <a href="quote.html" class="book-btn" onclick="closeMenu()">Book Now</a>
+</div>
+
+<!-- ── NAV ── -->
+<nav class="nav" id="navbar">
+  <a href="index.html" class="logo">
+    <img src="files/22e2f.png" alt="Logo" class="nav-logo-small">
+    <span>CJ Car Washing</span>
+  </a>
+  <div class="nav-links">
+    <a href="index.html#about">About</a>
+    <a href="services.html">Services</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="index.html#reviews">Reviews</a>
+    <a href="index.html#contact">Contact</a>
+    <a href="quote.html" class="book-btn">Book Now</a>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ── PAGE HEADER ── -->
+<div class="page-header">
+  <h1>Our Services</h1>
+  <p>Every service is carried out by hand, with care and attention to detail — we don't rush.</p>
+</div>
+
+<!-- ── SERVICE DETAIL CARDS ── -->
+<div class="services-wrap">
+
+  <!-- Maintenance Wash - FEATURED -->
+  <div class="svc-detail featured">
+    <div class="svc-aside">
+      <span class="popular-tag">⭐ Most Popular</span>
+      <h2>Maintenance Wash</h2>
+      <div>Save at least £7 when you book our maintenance service!</div>
+      <div class="svc-price">£15 <span>starting from</span></div>
+    </div>
+    <div class="svc-body">
+      <h3>Keep your car looking its best, regularly</h3>
+      <p>
+        The Maintenance Wash is designed for customers who want to keep on top of their car's cleanliness without breaking the bank every time. We consistently clean your car's interior and exterior, ensuring it always looks presentable and well cared for.
+      </p>
+      <div class="svc-note">
+        <strong>Note:</strong> This service is only available for cars that have been washed by us within the last month. If your car hasn't been cleaned recently, you will need to book the Inside &amp; Outside Valet for a proper deep clean first.
+      </div>
+      <ul class="svc-list">
+        <li>Full exterior hand wash</li>
+        <li>Full interior vacuum and wipe</li>
+        <li>Wheel detailing</li>
+        <li>Quick, efficient service</li>
+        <li>Great for regular upkeep</li>
+      </ul>
+      <a href="quote.html" class="book-link">Book the Maintenance Wash</a>
+    </div>
+  </div>
+
+  <!-- Inside & Outside -->
+  <div class="svc-detail featured">
+    <div class="svc-aside">
+      <h2>Inside &amp; Outside Valet</h2>
+      <span class="popular-tag">⭐ Most Popular</span>
+      <div class="svc-price">£22 <span>starting from</span></div>
+      <div>Restores your car to an amazing condition!</div>
+    </div>
+    <div class="svc-body">
+      <h3>The complete clean, inside and out</h3>
+      <p>
+        Our Inside &amp; Outside Valet is the most thorough service we offer, detailing both the exterior and interior of your car in one visit. If your car is looking very dirty, this serivce is perfect for you. Your car will look im amazing condition again, and you will be elligable for our maintenance service to keep it that way.
+      </p>
+      <ul class="svc-list">
+        <li>Full exterior hand wash</li>
+        <li>Wheel detailing</li>
+        <li>Deep interior vacuum and wipe</li>
+        <li>Door frames detailed</li>
+        <li>Now eligible for maintenance service</li>
+      </ul>
+      <a href="quote.html" class="book-link">Book Inside &amp; Outside</a>
+    </div>
+  </div>
+
+  <!-- Outside Wash -->
+  <div class="svc-detail">
+    <div class="svc-aside accent-bg">
+      <h2>Outside Wash</h2>
+      <div class="svc-price">£14 <span>starting from</span></div>
+      <div>Save at least £6 when you book inside and outside!</div>
+    </div>
+    <div class="svc-body">
+      <h3>A thorough exterior clean at a great price</h3>
+      <p>
+        Our Outside Wash is a hand wash service focused entirely on the exterior of your car. If the inside is fine but the outside has taken a battering from the roads, this is the quickest and most affordable option we offer.
+      </p>
+      <p>
+        We hand wash every panel, scrub the wheels clean, and dry everything off by hand to avoid water marks and streaks. You'll drive away with a properly clean car — not just a quick rinse. This is a great option for customers who keep their interiors tidy themselves but want the outside kept in good shape.
+      </p>
+      <ul class="svc-list">
+        <li>Full exterior hand wash</li>
+        <li>Wheel and tyre detailing</li>
+        <li>Windows cleaned</li>
+        <li>Hand dried finish</li>
+        <li>No streaks or water marks</li>
+        <li>Quick turnaround</li>
+      </ul>
+      <a href="quote.html" class="book-link">Book Outside Wash</a>
+    </div>
+  </div>
+
+  <!-- Inside Clean -->
+  <div class="svc-detail">
+    <div class="svc-aside accent-bg">
+      <h2>Inside Clean</h2>
+      <div class="svc-price">£14 <span>starting from</span></div>
+      <div>Save at least £6 when you book inside and outside!</div>
+    </div>
+    <div class="svc-body">
+      <h3>A deep clean of your interior</h3>
+      <p>
+        The Inside Clean focuses entirely on the interior of your car, giving it a thorough clean from front to back. Whether it's daily commuting build-up, kids leaving a mess, or just general clutter and dust we will sort it out.
+      </p>
+      <ul class="svc-list">
+        <li>Deep interior vacuum and wipe down</li>
+        <li>Dashboard detailed</li>
+        <li>All trim panels wiped</li>
+        <li>Door pockets &amp; frames cleaned</li>
+      </ul>
+      <a href="quote.html" class="book-link">Book Inside Clean</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── EXTRAS ── -->
+<div class="extras-section">
+  <div class="extras-title">Optional Add-ons</div>
+  <div class="extras-grid">
+
+    <div class="extra-card">
+      <div class="extra-icon"><i class="fa-solid fa-truck-pickup"></i></div>
+      <div class="extra-name">Prices vary per size and car cleanliness</div>
+      <div class="extra-desc">To keep our pricing competitive, prices may vary based on size and cleanliness of your car.</div>
+      <div class="extra-price">+£3 &nbsp;·&nbsp; +10 min</div>
+    </div>
+
+    <div class="extra-card">
+      <div class="extra-icon"><i class="fa-solid fa-spray-can-sparkles"></i></div>
+      <div class="extra-name">Stain Removal</div>
+      <div class="extra-desc">Got a stubborn stain on the upholstery or carpet? We'll spend extra time treating and removing it.</div>
+      <div class="extra-price">+£4 &nbsp;·&nbsp; +5 min</div>
+    </div>
+
+    <div class="extra-card">
+      <div class="extra-icon"><i class="fa-solid fa-paw"></i></div>
+      <div class="extra-name">Pet Hair Removal</div>
+      <div class="extra-desc">Pet hair in fabric seats and carpets can be tricky and time consuming to remove. We use specialist tools to get it all out.</div>
+      <div class="extra-price">+£4 &nbsp;·&nbsp; +10 min</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── CTA ── -->
+<div class="services-cta">
+  <h2>Ready to book?</h2>
+  <p>Get an instant price estimate and send us your booking request online.</p>
+  <a href="quote.html">Get a Quote &amp; Book Now</a>
+</div>
+
+<footer>
+  &copy; 2026 CJ Car Washing &nbsp;·&nbsp;
+  <a href="https://www.instagram.com/cjcarwashing.york/" target="_blank">Instagram</a> &nbsp;·&nbsp;
+  <a href="index.html">Home</a>
+</footer>
+
+<script>
+// Hamburger
+const hamburger=document.getElementById("hamburger");
+const mobileMenu=document.getElementById("mobile-menu");
+const mobileClose=document.getElementById("mobile-close");
+hamburger.addEventListener("click",()=>{
+  hamburger.classList.add("open");
+  mobileMenu.classList.add("open");
+  document.body.style.overflow="hidden";
+});
+mobileClose.addEventListener("click",closeMenu);
+function closeMenu(){
+  hamburger.classList.remove("open");
+  mobileMenu.classList.remove("open");
+  document.body.style.overflow="";
+}
+</script>
+
+</body>
+</html>
